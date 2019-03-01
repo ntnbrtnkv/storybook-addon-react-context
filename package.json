@@ -1,0 +1,66 @@
+{
+  "name": "storybook-addon-react-context",
+  "version": "1.0.0",
+  "description": "storybook addon for react context",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "example": "start-storybook -p 6006",
+    "clean": "rimraf dist",
+    "build": "tsc -p .",
+    "dev": "tsc -p . -w",
+    "pretest": "tslint -p .",
+    "test": "rimraf dist && jest",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ntnbrtnkv/storybook-addon-react-context.git"
+  },
+  "author": "Anton Bortnikov <6088046+ntnbrtnkv@users.noreply.github.com>",
+  "homepage": "https://github.com/ntnbrtnkv/storybook-addon-react-context#readme",
+  "license": "MIT",
+  "dependencies": {
+    "immutable": "^3.8.2",
+    "recompose": "^0.27.1"
+  },
+  "devDependencies": {
+    "@emotion/core": "^10.0.5",
+    "@emotion/styled": "^10.0.5",
+    "@storybook/addons": "^4.0.0",
+    "@storybook/react": "^4.0.2",
+    "@types/enzyme": "^3.1.13",
+    "@types/jest": "^23.3.2",
+    "@types/node": "^10.3.3",
+    "@types/react": "^16.3.17",
+    "@types/recompose": "^0.26.1",
+    "@types/sinon": "^5.0.2",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "7.1.5",
+    "emotion-theming": "^10.0.5",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme-to-json": "^3.3.4",
+    "jest": "^23.5.0",
+    "react": "^16.3.0",
+    "react-dom": "^16.5.0",
+    "rimraf": "^2.6.2",
+    "sinon": "^6.2.0",
+    "ts-jest": "^23.1.4",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
+  },
+  "peerDependencies": {
+    "@storybook/addons": "4.0.12",
+    "emotion-theming": "^10.0.0",
+    "react": "^16.3.0"
+  },
+  "keywords": [
+    "storybook",
+    "addon",
+    "context",
+    "react",
+    "typescript"
+  ]
+}
