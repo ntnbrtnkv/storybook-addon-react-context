@@ -1,12 +1,25 @@
-import * as React from "react";
-import { branch, compose, lifecycle, renderNothing, withHandlers, withState } from "recompose";
+import * as React from 'react';
+import {
+  branch,
+  compose,
+  lifecycle,
+  renderNothing,
+  withHandlers,
+  withState
+} from 'recompose';
 
-import { Option } from "./types/Option";
-import { SET_PROVIDER_VALUE, SET_OPTIONS, QUERY_PARAM } from "./constants";
+import { Option } from './types/Option';
+import { SET_PROVIDER_VALUE, SET_OPTIONS, QUERY_PARAM } from './constants';
+import { EventEmitter } from 'events';
 
 export interface Props {
-  channel: any;
-  api: any;
+  channel: EventEmitter;
+  api: {
+    on(event: string, callback: (data: any) => void): void;
+    off(event: string, callback: (data: any) => void): void;
+    setQueryParams(object: Record<string, any>): void;
+    getQueryParam(paramName: string): string;
+  };
   active: boolean;
 }
 
@@ -24,17 +37,23 @@ interface Handlers {
 
 type BaseComponentProps = Props & State & Handlers;
 
-const BaseComponent: React.SFC<BaseComponentProps> = ({ onChange, options, selectedOption }) => (
+const BaseComponent: React.FunctionComponent<BaseComponentProps> = ({
+  onChange,
+  options,
+  selectedOption
+}) => (
   <select value={selectedOption.value} onChange={onChange}>
     {options.map(({ label, value }) => (
-      <option value={value} key={value}>{label}</option>
+      <option value={value} key={value}>
+        {label}
+      </option>
     ))}
   </select>
 );
 
 export const Container = compose<BaseComponentProps, Props>(
-  withState("selectedOption", "selectOption", null),
-  withState("options", "setOptions", []),
+  withState('selectedOption', 'selectOption', null),
+  withState('options', 'setOptions', []),
   withHandlers<Props & State, Handlers>({
     onChange: ({ channel, selectOption, api, options }) => (e) => {
       const value = e.target.value;
@@ -43,15 +62,19 @@ export const Container = compose<BaseComponentProps, Props>(
       api.setQueryParams({ [QUERY_PARAM]: option.label });
       channel.emit(SET_PROVIDER_VALUE, option);
     },
-    onReceiveOptions: ({ selectOption, setOptions, channel, api }) => (newOptions: Option[]) => {
+    onReceiveOptions: ({ selectOption, setOptions, channel, api }) => (
+      newOptions: Option[]
+    ) => {
       const currrentLabel = api.getQueryParam(QUERY_PARAM);
       setOptions(newOptions);
       if (newOptions.length > 0) {
-        const option = newOptions.find((i: Option) => i.label === currrentLabel) || newOptions[0];
+        const option =
+          newOptions.find((i: Option) => i.label === currrentLabel) ||
+          newOptions[0];
         selectOption(option);
         channel.emit(SET_PROVIDER_VALUE, option);
       }
-    },
+    }
   }),
   lifecycle<BaseComponentProps, BaseComponentProps>({
     componentDidMount() {
@@ -61,10 +84,10 @@ export const Container = compose<BaseComponentProps, Props>(
     componentWillUnmount() {
       const { channel, onReceiveOptions } = this.props;
       channel.removeListener(SET_OPTIONS, onReceiveOptions);
-    },
+    }
   }),
   branch<BaseComponentProps>(
     ({ selectedOption, active }) => !selectedOption || !active,
-    renderNothing,
-  ),
+    renderNothing
+  )
 )(BaseComponent);

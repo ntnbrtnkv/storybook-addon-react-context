@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Option } from "./types/Option";
-import { ReactProvider } from "./Provider";
+import { Option } from './types/Option';
+import { ReactProvider } from './Provider';
 
 interface ReactProviderProps {
   options: Option[];
@@ -10,7 +10,11 @@ interface ReactProviderProps {
 
 export const withContextProvider = ({
   provider,
-  options,
-}: ReactProviderProps) => (story: () => JSX.Element) =>  {
-  return <ReactProvider provider={provider} options={options}>{story()}</ReactProvider>;
+  options
+}: ReactProviderProps) => (story: () => JSX.Element) => {
+  return (
+    <ReactProvider provider={provider} options={options}>
+      {story()}
+    </ReactProvider>
+  );
 };
