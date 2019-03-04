@@ -1,7 +1,7 @@
 import { addDecorator, configure } from '@storybook/react';
-import { withContextProvider } from "../dist/index";
 
-import { Provider } from "../example/Context";
+import { withContextProvider } from '../dist';
+import { Provider } from '../example/Context';
 
 addDecorator(withContextProvider({
   provider: Provider,
@@ -18,6 +18,7 @@ addDecorator(withContextProvider({
 }));
 
 // automatically import all files ending in *.stories.js
+// @ts-ignore
 const req = require.context('../', true, /.stories.tsx/);
 function loadStories() {
   req.keys().forEach((filename) => req(filename));
