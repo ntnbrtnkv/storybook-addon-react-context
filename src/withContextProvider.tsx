@@ -11,7 +11,7 @@ interface ReactProviderProps {
 export const withContextProvider = ({
   provider,
   options
-}: ReactProviderProps) => (story: () => JSX.Element) => {
+}: ReactProviderProps) => (story: Function) => {
   return (
     <ReactProvider provider={provider} options={options}>
       {story()}
