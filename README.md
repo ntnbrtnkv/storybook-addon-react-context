@@ -1,3 +1,13 @@
+# React Context Addon
+
+[![npm version](https://badge.fury.io/js/storybook-addon-react-context.svg)](https://badge.fury.io/js/storybook-addon-react-context)
+![npm](https://img.shields.io/npm/dt/storybook-addon-react-context.svg)
+[![CircleCI](https://circleci.com/gh/ntnbrtnkv/storybook-addon-react-context.svg?style=shield)](https://circleci.com/gh/ntnbrtnkv/storybook-addon-react-context)
+![David](https://img.shields.io/david/ntnbrtnkv/storybook-addon-react-context.svg)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/ntnbrtnkv/storybook-addon-react-context.svg)
+
+---
+
 #### Installation
 ```bash
 yarn add storybook-addon-react-context --dev
