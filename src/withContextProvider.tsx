@@ -6,15 +6,11 @@ import { ReactProvider } from './Provider';
 interface ReactProviderProps {
   options: Option[];
   provider: React.Provider<any>;
+  callback?: (option: Option) => void;
 }
 
-export const withContextProvider = ({
-  provider,
-  options
-}: ReactProviderProps) => (story: Function) => {
-  return (
-    <ReactProvider provider={provider} options={options}>
-      {story()}
-    </ReactProvider>
-  );
+export const withContextProvider = (props: ReactProviderProps) => (
+  story: Function
+) => {
+  return <ReactProvider {...props}>{story()}</ReactProvider>;
 };
