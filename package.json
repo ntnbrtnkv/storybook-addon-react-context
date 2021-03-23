@@ -53,6 +53,7 @@
     "addon",
     "context",
     "react",
-    "typescript"
+    "typescript",
+    "storybook-addon"
   ]
 }
